@@ -1,0 +1,166 @@
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-image: url("res/images/bookshelves.jpg");
+  background-size: cover;
+
+  display: flex;
+  justify-content: space-around;
+  margin: 10px;
+  font-family: Roboto;
+}
+
+button {
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  color: #fff1f2;
+  font-weight: 600;
+}
+
+.library {
+  padding: 0 50px;
+  background-color: #334155f2;
+  border-radius: 10px;
+}
+
+.heading {
+  font-family: Pacifico;
+  font-size: 3rem;
+  color: #10b981;
+  text-align: center;
+}
+
+.books {
+  display: grid;
+  grid-auto-rows: min-content;
+  gap: 10px;
+  height: calc(80vh - 10px);
+  overflow-y: scroll;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.book {
+  display: grid;
+  grid-template-columns: auto min-content min-content;
+  grid-template-rows: 1fr 1fr;
+  column-gap: 25px;
+
+  height: min-content;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #ffe4e6;
+}
+
+.book.read {
+  background-color: #fecdd3;
+}
+
+button#remove {
+  font-weight: 900;
+  font-size: 2rem;
+  padding: 0 25px;
+  align-self: center;
+  color: #fff;
+  background-color: #ff4a4a;
+  border: none;
+  border-radius: 25px;
+}
+
+.book-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+}
+
+#book-title {
+  font-size: 2rem;
+}
+
+#book-read {
+  grid-column: 2 / 3;
+  grid-row: 1 / 3;
+  align-self: center;
+}
+
+#book-read.read {
+  color: #047857;
+}
+
+.book-actions {
+  grid-column: 3 / 4;
+  grid-row: 1 / 3;
+  align-self: center;
+  display: grid;
+  gap: 10px;
+}
+
+button#mark-status.read {
+  background-color: #34d399;
+}
+
+button#mark-status.unread {
+  background-color: #047857;
+}
+
+button#remove-book {
+  background-color: #e11d48;
+}
+
+.orders {
+  margin: 50px 0;
+  padding: 0 50px;
+  padding-bottom: 25px;
+  height: min-content;
+  background-color: #1e293bf2;
+  border-radius: 10px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+button#new-book-button {
+  background-color: #059669;
+}
+
+.new-book {
+  display: none;
+}
+
+.new-book .heading {
+  font-size: 1.5rem;
+}
+
+.book-detail {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 5px 0;
+}
+
+.book-detail label {
+  color: #e1ffed;
+}
+
+input#read {
+  justify-self: left;
+}
+
+.credits {
+  position: absolute;
+  bottom: 25px;
+  right: 25px;
+  color: #ffe4e6;
+  font-size: 0.75rem;
+}
+
+.credits a {
+  color: #34d399;
+}
