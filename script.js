@@ -1,20 +1,21 @@
 let library = [];
 
-function Book(title, author, publishedYear, pages, read) {
-  this.title = title;
-  this.author = author;
-  this.publishedYear = publishedYear;
-  this.pages = pages;
-  this.read = read;
-  this.card = undefined;
+class Book {
+  card;
+
+  constructor(title, author, publishedYear, pages, read) {
+    this.title = title;
+    this.author = author;
+    this.publishedYear = publishedYear;
+    this.pages = pages;
+    this.read = read;
+  }
 }
 
 const booksSection = document.querySelector(".books");
 const newBookButton = document.querySelector("#new-book-button");
 const newBookSection = document.querySelector(".new-book");
 const newBookForm = document.querySelector("#new-book-form");
-
-newBookSection.style.display = "none";
 
 function checkFormFilled(form) {
   let allFilled = true;
@@ -28,16 +29,11 @@ function checkFormFilled(form) {
 }
 
 newBookButton.addEventListener("click", () => {
-  switch (newBookSection.style.display) {
-    case "none":
-      // Display the previously hidden form
-      newBookSection.style.display = "block";
-      newBookButton.textContent = "Add Book";
-      break;
-    case "block":
-      if (checkFormFilled(newBookForm)) {
-        // Get the entered data from the form
-        const newBookData = new FormData(newBookForm);
+  if (newBookSection.style.display === "block") {
+    if (checkFormFilled(newBookForm)) {
+      // Get the entered data from the form
+      const newBookData = new FormData(newBookForm);
+      if (newBookData.get("pages") > 0) {
         addBookToLibrary(
           new Book(
             newBookData.get("title"),
@@ -53,10 +49,17 @@ newBookButton.addEventListener("click", () => {
         newBookSection.style.display = "none";
         newBookButton.textContent = "New Book";
       } else {
-        alert("Please fill out the form completely!");
+        alert("Please enter valid values!");
       }
 
-      break;
+      
+    } else {
+      alert("Please fill out the form completely!");
+    }
+  } else {
+    // Display the previously hidden form
+    newBookSection.style.display = "block";
+    newBookButton.textContent = "Add Book";
   }
 });
 
