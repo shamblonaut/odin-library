@@ -28,15 +28,15 @@
           </div>
           <div class="book-detail">
             <label for="author">Author: </label>
-            <input type="text" name="author" id="author" />
+            <input type="text" name="author" id="author" required/>
           </div>
           <div class="book-detail">
             <label for="published">Published year: </label>
-            <input type="number" name="published" id="published" required />
+            <input type="number" name="published" id="published" min="0" required />
           </div>
           <div class="book-detail">
             <label for="pages">No. of Pages: </label>
-            <input type="number" name="pages" id="pages" required />
+            <input type="number" name="pages" id="pages" min="1" required />
           </div>
           <div class="book-detail">
             <label for="read">Read: </label>

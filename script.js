@@ -17,45 +17,50 @@ const newBookButton = document.querySelector("#new-book-button");
 const newBookSection = document.querySelector(".new-book");
 const newBookForm = document.querySelector("#new-book-form");
 
-function checkFormFilled(form) {
-  let allFilled = true;
-  form.querySelectorAll("[required]").forEach((i) => {
-    if (!i.value) {
-      allFilled = false;
-      return;
+function checkFormValidity(form) {
+  for (const input of form.querySelectorAll("input")) {
+    if (input.checkValidity()) continue;
+    if (input.validity.valueMissing) {
+      input.setCustomValidity("Field is empty, please provide a value");
     }
-  });
-  return allFilled;
+    else if (input.validity.rangeUnderflow) {
+      input.setCustomValidity("Value too small, please provide a reasonable value");
+    }
+    else {
+      input.setCustomValidity("");
+    }
+
+    input.reportValidity();
+    return false;
+  }
+  return true;
 }
 
-newBookButton.addEventListener("click", () => {
+newBookButton.addEventListener("click", event => {
+  event.preventDefault();
   if (newBookSection.style.display === "block") {
-    if (checkFormFilled(newBookForm)) {
-      // Get the entered data from the form
-      const newBookData = new FormData(newBookForm);
-      if (newBookData.get("pages") > 0) {
-        addBookToLibrary(
-          new Book(
-            newBookData.get("title"),
-            newBookData.get("author"),
-            newBookData.get("published"),
-            newBookData.get("pages"),
-            newBookData.get("read")
-          )
-        );
+    if (!checkFormValidity(newBookForm)) return;
 
-        // Clear and hide the form
-        newBookForm.reset();
-        newBookSection.style.display = "none";
-        newBookButton.textContent = "New Book";
-      } else {
-        alert("Please enter valid values!");
-      }
+    const title = newBookForm.querySelector("input#title");
+    const author = newBookForm.querySelector("input#author");
+    const publishedYear = newBookForm.querySelector("input#published");
+    const pages = newBookForm.querySelector("input#pages");
+    const read = newBookForm.querySelector("input#read");
+    
+    addBookToLibrary(
+      new Book(
+        title.value,
+        author.value,
+        publishedYear.value,
+        pages.value,
+        read.checked
+      )
+    );
 
-      
-    } else {
-      alert("Please fill out the form completely!");
-    }
+    // Clear and hide the form
+    newBookForm.reset();
+    newBookSection.style.display = "none";
+    newBookButton.textContent = "New Book";
   } else {
     // Display the previously hidden form
     newBookSection.style.display = "block";
